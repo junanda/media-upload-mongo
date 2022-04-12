@@ -1,0 +1,14 @@
+{
+  "name": "media-upload-mongo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/junanda/media-upload-mongo.git",
+  "author": "anzoid <jpatihullah@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./app/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
