@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const helmet = require("helmet");
 
 const media = require("./routes/MediaRoute");
 
@@ -23,6 +25,8 @@ class App {
   plugin() {
     this.app.use(bodyParser.json());
     this.app.use(cors());
+    this.app.use(morgan("dev"));
+    this.app.use(helmet());
   }
 }
 
