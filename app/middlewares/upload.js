@@ -1,11 +1,11 @@
 const multer = require("multer");
-const GridFsStorage = require("multer-gridfs-storage");
+const { GridFsStorage } = require("multer-gridfs-storage");
 const config = require("../config/config");
 const crypto = require("crypto");
 const path = require("path");
 
 // create storage engine
-const storage = GridFsStorage({
+const storage = new GridFsStorage({
   url: config.mongoURI,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ const storage = GridFsStorage({
         const filename = buf.toString("hex") + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
-          bucketName: "videos",
+          bucketName: "uploads",
         };
         resolve(fileInfo);
       });

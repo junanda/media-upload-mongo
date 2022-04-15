@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const methodOverride = require("method-override");
+const db = require("./database/Database");
 
 const media = require("./routes/MediaRoute");
 
@@ -13,6 +14,8 @@ class App {
     this.app = express();
     this.plugin();
     this.routes();
+    db.on("error", console.error.bind(console, "Database Connection Error"));
+    db.once("open", () => console.info("Database is Connected"));
   }
 
   routes() {
