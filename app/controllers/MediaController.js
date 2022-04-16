@@ -38,7 +38,7 @@ class MediaController {
     try {
       const video = await Video.findOne({ filename: req.body.filename });
       if (video) {
-        res.status(200).json({
+        return res.status(200).json({
           success: false,
           message: "Image already exists",
         });
@@ -67,7 +67,7 @@ class MediaController {
         .find(new mongoose.Types.ObjectId(idFile))
         .toArray();
       if (!files || files.length === 0) {
-        res.status(200).json({
+        return res.status(200).json({
           success: false,
           message: "No files available",
         });
@@ -91,7 +91,7 @@ class MediaController {
     try {
       const video = await this.gfs.find({ filename: filename }).toArray();
       if (!video[0] || video.length === 0) {
-        res.status(200).json({
+        return res.status(200).json({
           success: false,
           message: "no files available",
         });
@@ -124,8 +124,20 @@ class MediaController {
   delete = async (req, res) => {
     const idfile = req.params.id;
     try {
+      const data = await this.gfs
+        .find(new mongoose.Types.ObjectId(idfile))
+        .toArray();
+
+      if (!data[0] || data.length === 0) {
+        return res.status(200).json({
+          success: true,
+          message: "no files available",
+        });
+      }
+
       await this.gfs.delete(new mongoose.Types.ObjectId(idfile));
       await Video.deleteOne({ fileId: idfile });
+
       res.status(200).json({
         success: true,
         message: `File with ID ${idfile} is deleted`,
