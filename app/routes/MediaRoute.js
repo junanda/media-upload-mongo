@@ -7,6 +7,8 @@ class MediaRoute extends BaseRouter {
     this.router.get("/", mediaController.index);
     this.router.post("/", mediaController.store);
     this.router.post("/upload", upload.single("video"), mediaController.uplaod);
+    this.router.get("/videos/:id", mediaController.getFiles);
+    this.router.get("/video/play/:filename", mediaController.show);
   }
 }
 
