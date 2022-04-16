@@ -37,6 +37,7 @@ class App {
         crossOriginResourcePolicy: false,
       })
     );
+    this.app.use(methodOverride("_method"));
   }
 }
 

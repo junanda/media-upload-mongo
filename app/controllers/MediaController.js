@@ -123,6 +123,16 @@ class MediaController {
 
   delete = async (req, res) => {
     const idfile = req.params.id;
+    try {
+      await this.gfs.delete(new mongoose.Types.ObjectId(idfile));
+      await Video.deleteOne({ fileId: idfile });
+      res.status(200).json({
+        success: true,
+        message: `File with ID ${idfile} is deleted`,
+      });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
   };
 }
 
